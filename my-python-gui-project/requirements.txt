@@ -1,0 +1,3 @@
+tkinter  
+# o si decides usar PyQt5, descomenta la siguiente línea
+# PyQt5
