@@ -4,6 +4,7 @@ from movimiento import handle_keypress, move_image
 from pozos import add_pits_and_breeze, show_breeze
 from oro import add_gold_and_glow, recoger_oro
 from wumpus import add_wumpus_and_stench, show_stench
+from agente import Agente
 
 class MainWindow:
     def __init__(self, master):
@@ -13,12 +14,26 @@ class MainWindow:
         self.setup_ui()
         self.add_image_to_cell(0, 0)  # Cambiado a la celda (0, 0)
         self.current_position = (0, 0)
-        self.master.bind("<Key>", lambda event: handle_keypress(event, self))
-        self.master.bind("<space>", lambda event: self.handle_space())
+        self.game_over = False
+        self.pits = []  # Inicializa los pozos
+        self.gold = []  # Inicializa el oro
+        self.wumpus = []  # Inicializa los Wumpus
+
+        # Preguntar al usuario si quiere jugar él mismo o si quiere que el agente resuelva el juego
+        self.ask_player_or_agent()
+
+    def ask_player_or_agent(self):
+        choice = messagebox.askyesno("Modo de Juego", "¿Quieres jugar tú mismo? (Sí) o ¿Quieres que el agente resuelva el juego? (No)")
+        if choice:
+            self.master.bind("<Key>", lambda event: handle_keypress(event, self))
+            self.master.bind("<space>", lambda event: self.handle_space())
+        else:
+            self.agente = Agente(self)
+            self.agente.resolver_juego()
+
         add_pits_and_breeze(self)
         add_gold_and_glow(self)
         add_wumpus_and_stench(self)
-        self.game_over = False
 
     def ask_grid_size(self):
         self.rows = simpledialog.askinteger("Input", "Número de filas:", minvalue=1, maxvalue=100)
