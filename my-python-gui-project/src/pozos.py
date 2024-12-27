@@ -2,7 +2,7 @@ import random
 from tkinter import Label
 
 def add_pits_and_breeze(main_window):
-    num_pits = random.randint(1, 4)
+    num_pits = random.randint(1, 2)
     main_window.pits = []
     for _ in range(num_pits):
         while True:
@@ -11,7 +11,7 @@ def add_pits_and_breeze(main_window):
             if (row, column) not in main_window.pits and (row, column) != (0, 0):
                 if not any((r, c) in main_window.pits for r, c in get_adjacent_cells(row, column, main_window.rows, main_window.columns)):
                     main_window.pits.append((row, column))
-                    main_window.cells[(row, column)].config(bg="gray")  # Representa el pozo con color negro
+                    main_window.cells[(row, column)].config(bg="black")  # Representa el pozo con color negro
                     add_breeze(main_window, row, column)
                     break
 
@@ -33,6 +33,6 @@ def show_breeze(main_window, row, column):
     for r, c in adjacent_cells:
         if hasattr(main_window.cells[(r, c)], 'breeze') and main_window.cells[(r, c)].breeze:
             if not hasattr(main_window.cells[(r, c)], 'breeze_label'):
-                label = Label(main_window.cells[(r, c)], text="B", bg="gray")
+                label = Label(main_window.cells[(r, c)], text="B", bg="white")
                 label.pack(expand=True)
                 main_window.cells[(r, c)].breeze_label = label  # Guarda la referencia para evitar el garbage collector

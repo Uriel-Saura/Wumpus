@@ -10,7 +10,7 @@ def add_wumpus_and_stench(main_window):
             column = random.randint(0, main_window.columns - 1)
             if (row, column) not in main_window.pits and (row, column) not in main_window.gold and (row, column) not in main_window.wumpus and (row, column) != (0, 0):
                 main_window.wumpus.append((row, column))
-                main_window.cells[(row, column)].config(bg="gray")  # Representa el Wumpus con color rojo
+                main_window.cells[(row, column)].config(bg="red")  # Representa el Wumpus con color rojo
                 add_stench(main_window, row, column)
                 break
 
