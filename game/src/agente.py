@@ -132,9 +132,10 @@ class Agente:
     def recoger_oro(self):
         if self.posicion_actual in self.main_window.gold:
             self.main_window.gold.remove(self.posicion_actual)
-            self.main_window.cells[self.posicion_actual].config(bg="yellow")  # Regresa la celda a su estado original
+            self.main_window.cells[self.posicion_actual].config(bg="yellow")
             self.oro_recogido = True
-            print(f"Oro recogido", "¡Has recogido el oro!")
+            print("Oro recogido", "¡Has recogido el oro!")
             if not self.main_window.gold:
-                print(f"Victoria", "¡Has recolectado todos los oros! ¡Has ganado el juego!")
+                print("Victoria", "¡Has recolectado todos los oros!")
                 self.main_window.game_over = True
+                self.main_window.mostrar_botones_final()  # Llamada al nuevo método
